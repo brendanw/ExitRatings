@@ -67,7 +67,12 @@ suspend fun assembleWingsuitRating(
 
 suspend fun getNonIdealFlight(filename: String): List<FlysightRow> {
    try {
-      val resultStr = FileSystem.SYSTEM.source(filename.toPath()).buffer().use { source ->
+      val pathList = FileSystem.SYSTEM.list(".".toPath())
+      //println("pathList: $pathList")
+
+      val path = "src/commonMain/resources/$filename".toPath()
+
+      val resultStr = FileSystem.SYSTEM.source(path).buffer().use { source ->
          return@use source.readUtf8()
       }
 

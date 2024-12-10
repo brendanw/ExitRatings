@@ -5,8 +5,5 @@ import kotlin.test.assertEquals
 
 class JvmWingsuitRatingTests {
 
-    @Test
-    fun `test 3rd element`() {
-        assertEquals(5, generateFibi().take(3).last())
-    }
+
 }

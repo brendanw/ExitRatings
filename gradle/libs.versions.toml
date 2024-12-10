@@ -5,12 +5,12 @@ okio = "3.9.1"
 android-minSdk = "24"
 android-compileSdk = "34"
 
+# coroutines
+coroutines = "1.9.0"
+
 [libraries]
 okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-
-# coroutines
-coroutines = "1.9.0"
 
 # coroutines
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
