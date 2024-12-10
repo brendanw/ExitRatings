@@ -1,4 +1,4 @@
-package com.basebeta
+package com.basebeta.exitratings
 
 data class Point(val x: Int, val y: Int)
 

@@ -1,4 +1,4 @@
-package com.basebeta
+package com.basebeta.exitratings
 
 enum class JumpRating(val rating: Int) {
    Green(0),

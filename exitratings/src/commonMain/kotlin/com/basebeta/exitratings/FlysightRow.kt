@@ -1,4 +1,4 @@
-package com.basebeta
+package com.basebeta.exitratings
 
 data class FlysightRow(
    var time: String = "", //Time in ISO8601 format

@@ -1,4 +1,4 @@
-package com.basebeta
+package com.basebeta.exitratings
 
 import kotlin.math.abs
 
