@@ -1,4 +1,4 @@
-package com.basebeta
+package com.basebeta.com.basebeta
 
 data class Point(val x: Int, val y: Int)
 

@@ -1,4 +1,4 @@
-package com.basebeta
+package com.basebeta.com.basebeta
 
 import okio.FileSystem
 import okio.Path.Companion.toPath
