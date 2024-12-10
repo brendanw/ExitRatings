@@ -1,33 +1,49 @@
 package io.github.kotlin.fibonacci
 
+import okio.FileSystem
+import okio.Path.Companion.toPath
+import okio.SYSTEM
+import okio.buffer
+import okio.use
+
 // North-facing Le Pleurer (3700m) Aura 3 August 6, 2018
-const val nonIdeal3700 = "https://basebeta-east.s3.amazonaws.com/tracks/5903c6c041de5f0004bddcb2/fixed-fixedJump.CSV"
+const val nonIdeal3700 = "3700m-northFacing-aura3.csv"
 
 // North-facing Aspen Grove (3200m) Aura 5 September 12, 2023
-const val nonIdeal3200 = "https://basebeta-east.s3.amazonaws.com/tracks/5903c6c041de5f0004bddcb2/75df24-16-42-38.CSV"
+const val nonIdeal3200 = "3200m-northFacing-aura5.csv"
 
 // North-facing Mt Buller (2800m) Corvid2 July 12, 2024
-const val nonIdeal2800 = "https://basebeta.com/tracks/view/6691cc2ce6cd3e6d6d4fded7"
+const val nonIdeal2800 = "2800m-northFacing-corvid2.csv"
 
 // North-facing Rote Wand (2500m) Aura 5 Sept 24, 2024
-const val nonIdeal2500 = "https://basebeta-east.s3.amazonaws.com/tracks/5903c6c041de5f0004bddcb2/6ce575-roteWandRock.CSV"
+const val nonIdeal2500 = "2500m-northFacing-aura5.csv"
 
 // North-facing Schonangerspitze (2300m) Aura 5 Oct 1, 2024
-const val nonIdeal2300 = "https://basebeta-east.s3.amazonaws.com/tracks/5903c6c041de5f0004bddcb2/88a6d9-10-10-30.CSV"
+const val nonIdeal2300 = "2300m-northFacing-aura5.csv"
 
 // North-facing Adobe Point (2100m) Corvid2 Nov 12, 2022
-const val nonIdeal2100 = "https://basebeta-east.s3.amazonaws.com/tracks/5903c6c041de5f0004bddcb2/5pelak-adobePoint1.CSV"
+const val nonIdeal2100 = "2100m-northFacing-corvid2.csv"
 
 // North-facing Godzilla (1900m) Aura5 Sept 20, 2024
-const val nonIdeal1900 = "https://basebeta-east.s3.amazonaws.com/tracks/5903c6c041de5f0004bddcb2/08c139-10-18-54.CSV"
+const val nonIdeal1900 = "1900m-northFacing-aura5.csv"
 
 // North-facing Stiggbothornet (1500m) Aura5 Aug 24, 2023
-const val nonIdeal1500 = "https://basebeta-east.s3.amazonaws.com/tracks/5903c6c041de5f0004bddcb2/a01db7-stigbot-newflysight.CSV"
+const val nonIdeal1500 = "1500m-northFacing-corvid2.csv"
 
+/**
+ * @param exitProfile list of x-y measurements taken by laser from exit point [(5m,-20m), (10m,-50m), (30m,-100m), (40m,-120m)]
+ * @param flyableAltitude difference in hmsl recorded from point where flyer pushes and point where flyer lands
+ * @param minimumRequiredGlide glide ratio that pilot must be capable of sustaining through the duration of the flight
+ * to deploy canopy at least 135m above the ground
+ * @param hmsl elevation above sea level (in meters) for point where flyer pushes from exit
+ */
 suspend fun assembleWingsuitRating(
+   exitProfile: List<Point>,
+   flyableAltitude: Int,
+   minimumRequiredGlide: Double,
    hmsl: Int
 ): JumpRating? {
-   val nonIdealFlightUrl = when {
+   val filename = when {
       hmsl <= 1700 -> nonIdeal1500
       hmsl <= 1900 -> nonIdeal1900
       hmsl <= 2000 -> nonIdeal2100
@@ -39,18 +55,22 @@ suspend fun assembleWingsuitRating(
       else -> nonIdeal3700
    }
 
-   val nonIdealFlight = getNonIdealFlight(nonIdealFlightUrl, client)
+   val nonIdealFlight = getNonIdealFlight(filename)
 
    return generateWingsuitRating(
-      exit = exit,
-      glideHeuristic = track.glideHeuristic,
+      exitProfile = exitProfile,
+      flyableAltitude = flyableAltitude,
+      minimumRequiredGlide = minimumRequiredGlide,
       nonIdealFlight = nonIdealFlight
    )
 }
 
-suspend fun getNonIdealFlight(flightUrl: String, client: HttpClient): List<FlysightRow> {
+suspend fun getNonIdealFlight(filename: String): List<FlysightRow> {
    try {
-      val resultStr = client.get(urlString = flightUrl).bodyAsText()
+      val resultStr = FileSystem.SYSTEM.source(filename.toPath()).buffer().use { source ->
+         return@use source.readUtf8()
+      }
+
       val rows = resultStr.split("\n")
       val list = mutableListOf<FlysightRow>()
       rows.forEach { line ->
@@ -87,14 +107,15 @@ suspend fun getNonIdealFlight(flightUrl: String, client: HttpClient): List<Flysi
 /**
  * @param exitProfile list of x,y pairs defining the elevation profile of the start (units are meters)
  * @param flyableAltitude the difference in hmsl from push thru landing (units are meters)
- * @param glideHeuristic glideHeuristic value taken from a track flown from the very same exit
+ * @param minimumRequiredGlide glide ratio that pilot must be capable of sustaining through the duration of the flight
+ * to deploy canopy at least 135m above the ground
  * @param nonIdealFlight list of flysight rows where first row is the user pushing from exit. flight should be
  * from a north-facing exit w/ large suit from exit point with an HMSL value no greater than 500m different from exit
  */
 fun generateWingsuitRating(
    exitProfile: List<Point>,
    flyableAltitude: Int,
-   glideHeuristic: Double,
+   minimumRequiredGlide: Double,
    nonIdealFlight: List<FlysightRow>
 ): JumpRating? {
    // Exit must have a laser profile in order for a rating to be auto-generated
@@ -134,23 +155,23 @@ fun generateWingsuitRating(
    // Establish min rating by glideHeuristic of reference track
    // Note we do not look at tracks below 600m by glide heuristic due to methodology
    if (flyableAltitude > 600.0) {
-      if (glideHeuristic > 2.0) {
+      if (minimumRequiredGlide > 2.0) {
          curRating = maxOf(curRating, JumpRating.SingleBlue.rating)
       }
 
-      if (glideHeuristic > 2.2) {
+      if (minimumRequiredGlide > 2.2) {
          curRating = maxOf(curRating, JumpRating.DoubleBlue.rating)
       }
 
-      if (glideHeuristic > 2.5) {
+      if (minimumRequiredGlide > 2.5) {
          curRating = maxOf(curRating, JumpRating.SingleBlack.rating)
       }
 
-      if (glideHeuristic > 2.7) {
+      if (minimumRequiredGlide > 2.7) {
          curRating = maxOf(curRating, JumpRating.DoubleBlack.rating)
       }
 
-      if (glideHeuristic >= 3.0) {
+      if (minimumRequiredGlide >= 3.0) {
          curRating = maxOf(curRating, JumpRating.Red.rating)
       }
    }

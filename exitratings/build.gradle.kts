@@ -28,7 +28,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                //put your multiplatform dependencies here
+                // okio for file input/output
+                implementation(libs.okio)
             }
         }
         val commonTest by getting {
