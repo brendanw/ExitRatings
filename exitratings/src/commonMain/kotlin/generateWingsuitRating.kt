@@ -24,10 +24,9 @@ const val nonIdeal1900 = "https://basebeta-east.s3.amazonaws.com/tracks/5903c6c0
 // North-facing Stiggbothornet (1500m) Aura5 Aug 24, 2023
 const val nonIdeal1500 = "https://basebeta-east.s3.amazonaws.com/tracks/5903c6c041de5f0004bddcb2/a01db7-stigbot-newflysight.CSV"
 
-suspend fun assembleWingsuitRating(exit: ExitEntity, client: HttpClient, db: MongoDatabase): JumpRating? {
-   val referenceFlight = exit.referenceFlights.firstOrNull() ?: return null
-
-   val hmsl = exit.jumpMetrics.exitPointMSL
+suspend fun assembleWingsuitRating(
+   hmsl: Int
+): JumpRating? {
    val nonIdealFlightUrl = when {
       hmsl <= 1700 -> nonIdeal1500
       hmsl <= 1900 -> nonIdeal1900
@@ -41,11 +40,6 @@ suspend fun assembleWingsuitRating(exit: ExitEntity, client: HttpClient, db: Mon
    }
 
    val nonIdealFlight = getNonIdealFlight(nonIdealFlightUrl, client)
-
-   val track = db.getCollection<TrackEntity>("tracks").findOneById(referenceFlight.trackId) ?: run {
-      println("no reference track for ${exit.name}")
-      return null
-   }
 
    return generateWingsuitRating(
       exit = exit,
