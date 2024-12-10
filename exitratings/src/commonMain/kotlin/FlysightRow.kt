@@ -1,4 +1,4 @@
-package io.github.kotlin.fibonacci
+package com.basebeta
 
 data class FlysightRow(
    var time: String = "", //Time in ISO8601 format

@@ -1,4 +1,4 @@
-package io.github.kotlin.fibonacci
+package com.basebeta
 
 data class Point(val x: Int, val y: Int)
 

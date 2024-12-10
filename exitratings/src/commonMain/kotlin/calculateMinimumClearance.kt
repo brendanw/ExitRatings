@@ -1,4 +1,4 @@
-package io.github.kotlin.fibonacci
+package com.basebeta
 
 import kotlin.math.abs
 
