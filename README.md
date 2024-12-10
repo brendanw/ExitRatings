@@ -49,6 +49,10 @@ The first version of code was written to allow for finer grain distinctions with
 ### Red
 - A red jump will result in severe injury or death if not completed with specific updraft or wind direction
 
+## Browsing code
+- Code is implemented in pure kotlin that can be run on any platform
+- All code is thus in the commonMain module https://github.com/brendanw/ExitRatings/tree/master/exitratings/src/commonMain/kotlin
+- Other modules exist solely for adding test suites for each platform
 
 # Other resources
 * [Wingsuit exit rating system proposal document](https://docs.google.com/document/d/1o5gyGeIPlDgTJ5vPKI4J9P95pzmnM1hy93LcNmRVn9s/edit?tab=t.0)
