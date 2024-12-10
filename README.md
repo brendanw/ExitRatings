@@ -47,7 +47,7 @@ The first version of code was written to allow for finer grain distinctions with
 - Black jumps require consistent performance; falling below the intermedian quartile of performance may result in severe injury or death.
 
 ### Red
-- A red jump will result in severe injury or death if not completed with specific updraft or wind direction
+- A red jump will result in severe injury or death if not completed with environmental conditions that need to be timed precisely
 
 ## Browsing code
 - Code is implemented in pure kotlin that can be run on any platform
