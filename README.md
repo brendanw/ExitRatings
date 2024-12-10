@@ -6,9 +6,13 @@
 - Make it easy for jumpers to find the slowest possible progression from less risky flights to more advanced flights with the possibility of never doing the advanced flights at all
 - Provide categorization that allows for fine-grained, objective analysis of incident data
 - Provide categorization that allows for assessing hypotheses on BASE incident data
+- Provide categorization that allows for the development of higher specificity recurrency and training protocols
+- Provide categorization that allows for effective advocacy of our activity, namely that there are gradations of risk-taking within the activity and we have a pool of senior citizen jumpers who stick to greens and blues.
+- Provide categorization that enables the creation of practical guidelines from local BASE groups (FBA, SBA, BASE Access, SBK)
+- Provide categorization that forces self-honesty about one's risk taking
 
 ## Non-goals
-- Provide fine-grained distinction on the more advanced end of exit points
+- Provide fine-grained distinction on the more advanced end of exit points.
 
 ## Sensitive sites
 - In the past there has been an instinct to tell folks that sensitive jumps are worse than they actually are
@@ -18,7 +22,7 @@
 - Flyers who have proven some base line of skill and follow recurrency protocols can sustainably repeat green and blue jumps for a lifetime
 - Flights that offer lower margin yield a higher incident rate per jump.
 
-## High-level design and guiding principles for categorization
+## Guiding principles for categorization
 The first version of code was written to allow for finer grain distinctions within blue and black categorizations. But we feel it is important to first get the algo working at a higher level with respect to the below prescriptions before iterating on finer grained distinctions
 
 ### Green
