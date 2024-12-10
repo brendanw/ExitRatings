@@ -1,4 +1,4 @@
-package com.basebeta.com.basebeta
+package com.basebeta.wingsuit
 
 import okio.FileSystem
 import okio.Path.Companion.toPath
