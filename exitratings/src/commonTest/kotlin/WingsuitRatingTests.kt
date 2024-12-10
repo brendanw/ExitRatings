@@ -1,5 +1,6 @@
 package com.basebeta
 
+import com.basebeta.wingsuit.assembleWingsuitRating
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
