@@ -32,7 +32,6 @@ The first version of code was written to allow for finer grain distinctions with
   - Large gear-up area that is mostly flat and allows one to walk up to put feet over the ledge without much balance
 - Must have soft landing (ie not rock/road) landing that is at least 20m x 20m
 
-
 ### Blue
 - A jumper should be able to safely recover from a minor mistake on any jump that is either green or blue
   - a slip
