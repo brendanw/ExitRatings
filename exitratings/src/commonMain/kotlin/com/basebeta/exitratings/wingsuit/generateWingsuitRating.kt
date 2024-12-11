@@ -5,6 +5,7 @@ import com.basebeta.exitratings.JumpRating
 import com.basebeta.exitratings.Point
 import com.basebeta.exitratings.calculateMinimumClearance
 import com.basebeta.exitratings.toJumpRating
+import com.basebeta.exitratings.wingsuit.referenceflights.ReferenceFlights
 import okio.FileSystem
 import okio.Path.Companion.toPath
 import okio.SYSTEM
@@ -86,9 +87,7 @@ internal suspend fun getNonIdealFlight(filename: String): List<FlysightRow> {
 
       val path = "${wingsuitRatingPathPrefix}/src/commonMain/resources/$filename".toPath()
 
-      val resultStr = FileSystem.SYSTEM.source(path).buffer().use { source ->
-         return@use source.readUtf8()
-      }
+      val resultStr = ReferenceFlights.flightMap[filename]!!
 
       val rows = resultStr.split("\n")
       val list = mutableListOf<FlysightRow>()
