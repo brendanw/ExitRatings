@@ -80,13 +80,6 @@ suspend fun assembleWingsuitRating(
  */
 internal suspend fun getNonIdealFlight(filename: String): List<FlysightRow> {
    try {
-      // TODO: tomorrow, we should instead download files here and store them in a dedicated directory
-      // this function should check if files exist before downloading
-      //val pathList = FileSystem.SYSTEM.list(wingsuitRatingPathPrefix.toPath())
-      //println("pathList: $pathList")
-
-      val path = "${wingsuitRatingPathPrefix}/src/commonMain/resources/$filename".toPath()
-
       val resultStr = ReferenceFlights.flightMap[filename]!!
 
       val rows = resultStr.split("\n")
