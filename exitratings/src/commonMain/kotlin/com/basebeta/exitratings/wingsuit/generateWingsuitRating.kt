@@ -11,6 +11,8 @@ import okio.SYSTEM
 import okio.buffer
 import okio.use
 
+var wingsuitRatingPathPrefix = "."
+
 // North-facing Le Pleurer (3700m) Aura 3 August 6, 2018
 const val nonIdeal3700 = "3700m-northFacing-aura3.csv"
 
@@ -33,7 +35,7 @@ const val nonIdeal2100 = "2100m-northFacing-corvid2.csv"
 const val nonIdeal1900 = "1900m-northFacing-aura5.csv"
 
 // North-facing Stiggbothornet (1500m) Aura5 Aug 24, 2023
-const val nonIdeal1500 = "1500m-northFacing-corvid2.csv"
+const val nonIdeal1500 = "1500m-northFacing-aura5.csv"
 
 /**
  * @param exitProfile list of x-y measurements taken by laser from exit point [(5m,-20m), (10m,-50m), (30m,-100m), (40m,-120m)]
@@ -72,10 +74,10 @@ suspend fun assembleWingsuitRating(
 
 suspend fun getNonIdealFlight(filename: String): List<FlysightRow> {
    try {
-      val pathList = FileSystem.SYSTEM.list(".".toPath())
-      //println("pathList: $pathList")
+      val pathList = FileSystem.SYSTEM.list(wingsuitRatingPathPrefix.toPath())
+      // println("pathList: $pathList")
 
-      val path = "src/commonMain/resources/$filename".toPath()
+      val path = "${wingsuitRatingPathPrefix}/src/commonMain/resources/$filename".toPath()
 
       val resultStr = FileSystem.SYSTEM.source(path).buffer().use { source ->
          return@use source.readUtf8()

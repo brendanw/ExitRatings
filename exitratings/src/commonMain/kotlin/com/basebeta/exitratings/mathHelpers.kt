@@ -5,11 +5,10 @@ import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.sqrt
 
-const val PI = 3.14159265358979323846
 
 // from degree to  rad
 fun Double.degToRad(): Double {
-   return this * (PI / 180)
+   return this * (kotlin.math.PI / 180.0)
 }
 
 fun getDistanceFromLatLonInKM(
@@ -40,13 +39,6 @@ fun getDistY(start: FlysightRow, current: FlysightRow): Double {
 
 fun findHypotenuse(a: Double, b: Double): Double {
    return sqrt(((a * a) + (b * b)))
-}
-
-fun getYFromPointSlope(inputX: Int, p1: Array<Int>, p2: Array<Int>): Int {
-   val m = (p2[1] - p1[1]) / (p2[0] - p1[0])
-   val b = p2[1] - (m * p2[0])
-   val y = (m * inputX) + b
-   return y
 }
 
 fun getXFromPointSlope(inputY: Double, p1: DPoint, p2: DPoint): Double {
