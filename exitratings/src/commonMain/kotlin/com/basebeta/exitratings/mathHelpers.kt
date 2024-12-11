@@ -7,11 +7,11 @@ import kotlin.math.sqrt
 
 
 // from degree to  rad
-fun Double.degToRad(): Double {
+internal fun Double.degToRad(): Double {
    return this * (kotlin.math.PI / 180.0)
 }
 
-fun getDistanceFromLatLonInKM(
+internal fun getDistanceFromLatLonInKM(
    startLat: Double,
    startLon: Double,
    currentLat: Double,
@@ -28,20 +28,20 @@ fun getDistanceFromLatLonInKM(
    return r * c // distance in km
 }
 
-fun getDistX(start: FlysightRow, current: FlysightRow): Double {
+internal fun getDistX(start: FlysightRow, current: FlysightRow): Double {
    val distKM = getDistanceFromLatLonInKM(start.lat, start.lon, current.lat, current.lon)
    return distKM * 1000 // distance in m
 }
 
-fun getDistY(start: FlysightRow, current: FlysightRow): Double {
+internal fun getDistY(start: FlysightRow, current: FlysightRow): Double {
    return (start.hMSL - current.hMSL) // height in m
 }
 
-fun findHypotenuse(a: Double, b: Double): Double {
+internal fun findHypotenuse(a: Double, b: Double): Double {
    return sqrt(((a * a) + (b * b)))
 }
 
-fun getXFromPointSlope(inputY: Double, p1: DPoint, p2: DPoint): Double {
+internal fun getXFromPointSlope(inputY: Double, p1: DPoint, p2: DPoint): Double {
    // Ensure the points are not the same to avoid division by zero
    if (p1.y == p2.y) throw IllegalArgumentException("The y-coordinates of p1 and p2 must not be the same.")
 
@@ -49,7 +49,7 @@ fun getXFromPointSlope(inputY: Double, p1: DPoint, p2: DPoint): Double {
    return p1.x + ((inputY - p1.y) * (p2.x - p1.x)) / (p2.y - p1.y)
 }
 
-fun Double.round(decimals: Int): Double {
+internal fun Double.round(decimals: Int): Double {
    val numberAsString = this.toString()
    val decimalIndex = numberAsString.indexOf(".")
 

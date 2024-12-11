@@ -7,7 +7,7 @@ import kotlin.math.abs
  * @param referenceFlight list of flysight rows making up the reference flight. first row should be first moment the
  * user pushes. last row should be touch-down/landing.
  */
-fun calculateMinimumClearance(
+internal fun calculateMinimumClearance(
    exitProfile: List<Point>,
    referenceFlight: List<FlysightRow>
 ): Double? {

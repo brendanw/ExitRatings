@@ -72,7 +72,7 @@ suspend fun assembleWingsuitRating(
    )
 }
 
-suspend fun getNonIdealFlight(filename: String): List<FlysightRow> {
+internal suspend fun getNonIdealFlight(filename: String): List<FlysightRow> {
    try {
       val pathList = FileSystem.SYSTEM.list(wingsuitRatingPathPrefix.toPath())
       // println("pathList: $pathList")
@@ -124,7 +124,7 @@ suspend fun getNonIdealFlight(filename: String): List<FlysightRow> {
  * @param nonIdealFlight list of flysight rows where first row is the user pushing from exit. flight should be
  * from a north-facing exit w/ large suit from exit point with an HMSL value no greater than 500m different from exit
  */
-fun generateWingsuitRating(
+internal fun generateWingsuitRating(
    exitProfile: List<Point>,
    flyableAltitude: Int,
    minimumRequiredGlide: Double,

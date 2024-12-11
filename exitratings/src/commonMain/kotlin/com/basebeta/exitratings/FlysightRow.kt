@@ -1,6 +1,6 @@
 package com.basebeta.exitratings
 
-data class FlysightRow(
+internal data class FlysightRow(
    var time: String = "", //Time in ISO8601 format
    var lat: Double = 0.0, //Latitude (degrees)
    var lon: Double = 0.0, //Longitude (degrees)

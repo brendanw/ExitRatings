@@ -3,7 +3,7 @@ package com.basebeta.wingsuit
 /**
  * Storing here so we can produce a smaller binary for backend env
  */
-class ReferenceFlightUrls {
+internal class ReferenceFlightUrls {
    // North-facing Le Pleurer (3700m) Aura 3 August 6, 2018
    private val nonIdeal3700 =
       "https://basebeta-east.s3.amazonaws.com/tracks/5903c6c041de5f0004bddcb2/fixed-fixedJump.CSV"
