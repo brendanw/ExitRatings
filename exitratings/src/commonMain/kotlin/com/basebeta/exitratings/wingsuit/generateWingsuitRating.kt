@@ -72,10 +72,17 @@ suspend fun assembleWingsuitRating(
    )
 }
 
+/**
+ * There are a lot of nuances around bundling/packaging files in the resources directory
+ *
+ * related youtrack: https://youtrack.jetbrains.com/issue/KT-49981
+ */
 internal suspend fun getNonIdealFlight(filename: String): List<FlysightRow> {
    try {
-      val pathList = FileSystem.SYSTEM.list(wingsuitRatingPathPrefix.toPath())
-      // println("pathList: $pathList")
+      // TODO: tomorrow, we should instead download files here and store them in a dedicated directory
+      // this function should check if files exist before downloading
+      //val pathList = FileSystem.SYSTEM.list(wingsuitRatingPathPrefix.toPath())
+      //println("pathList: $pathList")
 
       val path = "${wingsuitRatingPathPrefix}/src/commonMain/resources/$filename".toPath()
 

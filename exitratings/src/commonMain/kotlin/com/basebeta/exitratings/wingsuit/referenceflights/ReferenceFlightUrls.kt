@@ -1,4 +1,4 @@
-package com.basebeta.wingsuit
+package com.basebeta.exitratings.wingsuit.referenceflights
 
 /**
  * Storing here so we can produce a smaller binary for backend env
