@@ -6,11 +6,6 @@ import com.basebeta.exitratings.Point
 import com.basebeta.exitratings.calculateMinimumClearance
 import com.basebeta.exitratings.toJumpRating
 import com.basebeta.exitratings.wingsuit.referenceflights.ReferenceFlights
-import okio.FileSystem
-import okio.Path.Companion.toPath
-import okio.SYSTEM
-import okio.buffer
-import okio.use
 
 var wingsuitRatingPathPrefix = "."
 
