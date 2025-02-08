@@ -54,4 +54,6 @@ class WingsuitRatingTests {
         assertNotEquals(rating?.rating, null)
         assertEquals(rating?.rating, JumpRating.SingleBlue.rating)
     }
+
+
 }

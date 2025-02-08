@@ -182,42 +182,82 @@ internal fun generateWingsuitRating(
       }
    }
 
-   // Establish min rating by clearance of a median start in poor conditions (north-facing weak push)
-   val minimumClearance: Double? = calculateMinimumClearance(
+   val minimumClearanceWindow1: Double? = calculateMinimumClearance(
       exitProfile = exitProfile,
-      referenceFlight = nonIdealFlight
+      referenceFlight = nonIdealFlight,
+      range = 3..30
    )
 
    // If the algo is unable to calculate minimum clearance, then do not auto generate a rating
-   if (minimumClearance == null) {
+   if (minimumClearanceWindow1 == null) {
       return null
    }
 
-   if (minimumClearance < 0.0) {
+   if (minimumClearanceWindow1 < 3.0) {
       curRating = maxOf(curRating, JumpRating.Red.rating)
    }
 
-   if (minimumClearance < 5.0) {
+   if (minimumClearanceWindow1 < 4.0) {
       curRating = maxOf(curRating, JumpRating.TripleBlack.rating)
    }
 
-   if (minimumClearance < 10.0) {
+   if (minimumClearanceWindow1 < 5.0) {
       curRating = maxOf(curRating, JumpRating.DoubleBlack.rating)
    }
 
-   if (minimumClearance < 20.0) {
+   if (minimumClearanceWindow1 < 7.0) {
       curRating = maxOf(curRating, JumpRating.SingleBlack.rating)
    }
 
-   if (minimumClearance < 30.0) {
+   if (minimumClearanceWindow1 < 9.0) {
       curRating = maxOf(curRating, JumpRating.TripleBlue.rating)
    }
 
-   if (minimumClearance < 40.0) {
+   if (minimumClearanceWindow1 < 11.0) {
       curRating = maxOf(curRating, JumpRating.DoubleBlue.rating)
    }
 
-   if (minimumClearance < 50.0) {
+   if (minimumClearanceWindow1 < 13.0) {
+      curRating = maxOf(curRating, JumpRating.SingleBlue.rating)
+   }
+
+   // Establish min rating by clearance of a median start in poor conditions (north-facing weak push)
+   val minimumClearanceWindow2: Double? = calculateMinimumClearance(
+      exitProfile = exitProfile,
+      referenceFlight = nonIdealFlight,
+      range = 30..250
+   )
+
+   // If the algo is unable to calculate minimum clearance, then do not auto generate a rating
+   if (minimumClearanceWindow2 == null) {
+      return null
+   }
+
+   if (minimumClearanceWindow2 < 0.0) {
+      curRating = maxOf(curRating, JumpRating.Red.rating)
+   }
+
+   if (minimumClearanceWindow2 < 5.0) {
+      curRating = maxOf(curRating, JumpRating.TripleBlack.rating)
+   }
+
+   if (minimumClearanceWindow2 < 10.0) {
+      curRating = maxOf(curRating, JumpRating.DoubleBlack.rating)
+   }
+
+   if (minimumClearanceWindow2 < 20.0) {
+      curRating = maxOf(curRating, JumpRating.SingleBlack.rating)
+   }
+
+   if (minimumClearanceWindow2 < 30.0) {
+      curRating = maxOf(curRating, JumpRating.TripleBlue.rating)
+   }
+
+   if (minimumClearanceWindow2 < 40.0) {
+      curRating = maxOf(curRating, JumpRating.DoubleBlue.rating)
+   }
+
+   if (minimumClearanceWindow2 < 50.0) {
       curRating = maxOf(curRating, JumpRating.SingleBlue.rating)
    }
 
