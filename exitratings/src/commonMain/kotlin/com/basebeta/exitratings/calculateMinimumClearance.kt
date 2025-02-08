@@ -14,7 +14,11 @@ internal fun calculateMinimumClearance(
    var minClearance = Double.MAX_VALUE
    exitProfile.forEach { terrainRow ->
       if (terrainRow.x > 3) {
-         val flightX = deriveXAtGivenY(terrainRow.y.toDouble(), referenceFlight) ?: return null
+         val flightX = deriveXAtGivenY(terrainRow.y.toDouble(), referenceFlight)
+         if (flightX == null) {
+            return null
+         }
+
          val clearance = flightX - terrainRow.x
          minClearance = minOf(minClearance, clearance)
       }
@@ -58,13 +62,14 @@ private fun deriveXAtGivenY(
 
          // reset values if 10 rows later and we are still not seeing changes in height indicative of flight
          val hasNotStartedFlying = ((startHeight - row.hMSL) < 5) || abs(row.velD) < 10
-         val hasStartedFlying = !hasNotStartedFlying
          if (startRow != null && (i == (startIndex + 10)) && hasNotStartedFlying) {
             lastPoint = DPoint(0.0, 0.0)
             startRow = null
             unrolledDistance = 0.0
             unrolledHeight = 0.0
          }
+
+         val hasStartedFlying = startRow != null
 
          // Get distance
          if (previousRow != null && startRow != null) {
