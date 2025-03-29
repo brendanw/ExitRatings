@@ -62,28 +62,28 @@ mavenPublishing {
     coordinates(group.toString(), "exitratings", version.toString())
 
     pom {
-        name = "My library"
-        description = "A library."
+        name = "ExitRatings"
+        description = "A library for generating wingsuit and slider off exit ratings for BASE jumping applications"
         inceptionYear = "2024"
-        url = "https://github.com/kotlin/multiplatform-library-template/"
+        url = "https://github.com/brendanw/ExitRatings"
         licenses {
             license {
-                name = "XXX"
-                url = "YYY"
-                distribution = "ZZZ"
+                name = "Apache License 2.0"
+                url = "https://www.apache.org/licenses/LICENSE-2.0"
+                distribution = "repo"
             }
         }
         developers {
             developer {
-                id = "XXX"
-                name = "YYY"
-                url = "ZZZ"
+                id = "BaseBeta"
+                name = "BaseBeta"
+                url = "https://www.basebeta.com"
             }
         }
         scm {
-            url = "XXX"
-            connection = "YYY"
-            developerConnection = "ZZZ"
+            url = "https://github.com/brendanw/ExitRatings"
+            connection = "scm:git:git://github.com/brendanw/ExitRatings.git"
+            developerConnection = "scm:git:ssh://git@github.com:brendanw/ExitRatings.git"
         }
     }
 }
