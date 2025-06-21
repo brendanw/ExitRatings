@@ -131,6 +131,38 @@ class WingsuitRatingTests {
    }
 
    @Test
+   fun `Squaw Back`() = runTest {
+      val squawBackProfile = listOf(
+         Point(0, 0),
+         Point(8, -50),
+         Point(10, -53),
+         Point(14, -66),
+         Point(16, -69),
+         Point(19, -73),
+         Point(39, -145),
+         Point(43, -146),
+         Point(47, -147),
+         Point(50, -153),
+         Point(53, -159),
+         Point(63, -160),
+         Point(65, -164),
+         Point(74, -164)
+      )
+
+      val rating = assembleWingsuitRating(
+         exitProfile = squawBackProfile,
+         flyableAltitude = 821,
+         minimumRequiredGlide = 2.29,
+         hmsl = 2396
+      )
+
+      assertEquals(
+         expected = JumpRating.SingleBlack.rating,
+         actual = rating?.rating
+      )
+   }
+
+   @Test
    fun `Mt Buller`() = runTest {
       val buller = listOf(
          Point(0, 0),
@@ -249,7 +281,7 @@ class WingsuitRatingTests {
          hmsl = 2635
       )
 
-      assertEquals(expected = JumpRating.Red.rating, actual = rating?.rating)
+      assertEquals(expected = JumpRating.TripleBlack.rating, actual = rating?.rating)
    }
 
 }

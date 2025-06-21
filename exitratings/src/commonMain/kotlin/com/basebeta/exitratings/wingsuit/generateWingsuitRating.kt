@@ -7,31 +7,17 @@ import com.basebeta.exitratings.calculateMinimumClearance
 import com.basebeta.exitratings.toJumpRating
 import com.basebeta.exitratings.wingsuit.referenceflights.ReferenceFlights
 
-var wingsuitRatingPathPrefix = "."
-
 // North-facing Le Pleurer (3700m) Aura 3 August 6, 2018
 const val nonIdeal3700 = "3700m-northFacing-aura3.csv"
 
 // North-facing Aspen Grove (3200m) Aura 5 September 12, 2023
 const val nonIdeal3200 = "3200m-northFacing-aura5.csv"
 
-// North-facing Mt Buller (2800m) Corvid2 July 12, 2024
-const val nonIdeal2800 = "2800m-northFacing-corvid2.csv"
-
 // North-facing Rote Wand (2500m) Aura 5 Sept 24, 2024
 const val nonIdeal2500 = "2500m-northFacing-aura5.csv"
 
-// North-facing Schonangerspitze (2300m) Aura 5 Oct 1, 2024
-const val nonIdeal2300 = "2300m-northFacing-aura5.csv"
-
-// North-facing Adobe Point (2100m) Corvid2 Nov 12, 2022
-const val nonIdeal2100 = "2100m-northFacing-corvid2.csv"
-
 // North-facing Godzilla (1900m) Aura5 Sept 20, 2024
 const val nonIdeal1900 = "1900m-northFacing-aura5.csv"
-
-// North-facing Stiggbothornet (1500m) Aura5 Aug 24, 2023
-const val nonIdeal1500 = "1500m-northFacing-aura5.csv"
 
 /**
  * @param exitProfile list of x-y measurements taken by laser from exit point [(5m,-20m), (10m,-50m), (30m,-100m), (40m,-120m)]
@@ -47,12 +33,8 @@ suspend fun assembleWingsuitRating(
    hmsl: Int
 ): JumpRating? {
    val filename = when {
-      hmsl <= 1700 -> nonIdeal1500
       hmsl <= 1900 -> nonIdeal1900
-      hmsl <= 2000 -> nonIdeal2100
-      hmsl <= 2200 -> nonIdeal2300
       hmsl <= 2450 -> nonIdeal2500
-      hmsl <= 2650 -> nonIdeal2800
       hmsl <= 3000 -> nonIdeal3200
       hmsl <= 3400 -> nonIdeal3700
       else -> nonIdeal3700
