@@ -237,30 +237,6 @@ class WingsuitRatingTests {
       assertEquals(expected = JumpRating.DoubleBlack.rating, actual = rating?.rating)
    }
 
-   /**
-    * This one feels odd as the red is generated due to the 5m,-25m ledge which is a tighter ledge to clear, but after
-    * that the rest of the flight is really nice.
-    */
-   @Test
-   fun `Cascade`() = runTest {
-      val cascade = listOf(
-         Point(0, 0),
-         Point(5, -25),
-         Point(32, -143),
-         Point(89, -208),
-         Point(146, -258)
-      )
-
-      val rating = assembleWingsuitRating(
-         exitProfile = cascade,
-         flyableAltitude = 1494,
-         minimumRequiredGlide = 2.2,
-         hmsl = 2917
-      )
-
-      assertEquals(expected = JumpRating.Red.rating, actual = rating?.rating)
-   }
-
    @Test
    fun `Timpanogos Cave`() = runTest {
       val timpanogosCave = listOf(
@@ -287,6 +263,30 @@ class WingsuitRatingTests {
       )
 
       assertEquals(expected = JumpRating.TripleBlack.rating, actual = rating?.rating)
+   }
+
+   /**
+    * This one feels odd as the red is generated due to the 5m,-25m ledge which is a tighter ledge to clear, but after
+    * that the rest of the flight is really nice.
+    */
+   @Test
+   fun `Cascade`() = runTest {
+      val cascade = listOf(
+         Point(0, 0),
+         Point(5, -25),
+         Point(32, -143),
+         Point(89, -208),
+         Point(146, -258)
+      )
+
+      val rating = assembleWingsuitRating(
+         exitProfile = cascade,
+         flyableAltitude = 1494,
+         minimumRequiredGlide = 2.2,
+         hmsl = 2917
+      )
+
+      assertEquals(expected = JumpRating.Red.rating, actual = rating?.rating)
    }
 
    @Test
