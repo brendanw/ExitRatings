@@ -284,4 +284,32 @@ class WingsuitRatingTests {
       assertEquals(expected = JumpRating.TripleBlack.rating, actual = rating?.rating)
    }
 
+   @Test
+   fun `Timpanogos Cave`() = runTest {
+      val timpanogosCave = listOf(
+         Point(0, 0),
+         Point(32, -112),
+         Point(36, -116),
+         Point(48, -129),
+         Point(55, -137),
+         Point(86, -158),
+         Point(148, -198),
+         Point(206, -239),
+         Point(270, -275),
+         Point(338, -333),
+         Point(782, -447),
+         Point(1505, -794),
+         Point(1660, -804)
+      )
+
+      val rating = assembleWingsuitRating(
+         exitProfile = timpanogosCave,
+         flyableAltitude = 800,
+         minimumRequiredGlide = 2.0,
+         hmsl = 2369
+      )
+
+      assertEquals(expected = JumpRating.Red.rating, actual = rating?.rating)
+   }
+
 }

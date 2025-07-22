@@ -159,6 +159,10 @@ internal fun generateWingsuitRating(
          curRating = maxOf(curRating, JumpRating.DoubleBlack.rating)
       }
 
+      if (minimumRequiredGlide > 2.9) {
+         curRating = maxOf(curRating, JumpRating.TripleBlack.rating)
+      }
+
       if (minimumRequiredGlide >= 3.0) {
          curRating = maxOf(curRating, JumpRating.Red.rating)
       }
