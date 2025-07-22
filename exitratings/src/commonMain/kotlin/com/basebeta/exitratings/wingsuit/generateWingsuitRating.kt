@@ -1,5 +1,6 @@
 package com.basebeta.wingsuit
 
+import com.basebeta.exitratings.ClearanceMode
 import com.basebeta.exitratings.FlysightRow
 import com.basebeta.exitratings.JumpRating
 import com.basebeta.exitratings.Point
@@ -211,7 +212,8 @@ internal fun generateWingsuitRating(
    val minimumClearanceWindow2: Double? = calculateMinimumClearance(
       exitProfile = exitProfile,
       referenceFlight = nonIdealFlight,
-      range = 30..250
+      range = 30..250,
+      mode = ClearanceMode.yDistance
    )
 
    // If the algo is unable to calculate minimum clearance, then do not auto generate a rating
@@ -219,31 +221,31 @@ internal fun generateWingsuitRating(
       return null
    }
 
-   if (minimumClearanceWindow2 < 0.0) {
+   if (minimumClearanceWindow2 < 5.0) {
       curRating = maxOf(curRating, JumpRating.Red.rating)
    }
 
-   if (minimumClearanceWindow2 < 5.0) {
+   if (minimumClearanceWindow2 < 10.0) {
       curRating = maxOf(curRating, JumpRating.TripleBlack.rating)
    }
 
-   if (minimumClearanceWindow2 < 10.0) {
+   if (minimumClearanceWindow2 < 20.0) {
       curRating = maxOf(curRating, JumpRating.DoubleBlack.rating)
    }
 
-   if (minimumClearanceWindow2 < 20.0) {
+   if (minimumClearanceWindow2 < 30.0) {
       curRating = maxOf(curRating, JumpRating.SingleBlack.rating)
    }
 
-   if (minimumClearanceWindow2 < 30.0) {
+   if (minimumClearanceWindow2 < 40.0) {
       curRating = maxOf(curRating, JumpRating.TripleBlue.rating)
    }
 
-   if (minimumClearanceWindow2 < 40.0) {
+   if (minimumClearanceWindow2 < 50.0) {
       curRating = maxOf(curRating, JumpRating.DoubleBlue.rating)
    }
 
-   if (minimumClearanceWindow2 < 50.0) {
+   if (minimumClearanceWindow2 < 60.0) {
       curRating = maxOf(curRating, JumpRating.SingleBlue.rating)
    }
 

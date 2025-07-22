@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "com.basebeta"
-version = "0.3.1"
+version = "0.4.0"
 
 kotlin {
     jvm()

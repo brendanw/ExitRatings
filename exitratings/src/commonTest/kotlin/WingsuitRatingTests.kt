@@ -125,7 +125,7 @@ class WingsuitRatingTests {
       )
 
       assertEquals(
-         expected = JumpRating.DoubleBlue.rating,
+         expected = JumpRating.TripleBlue.rating,
          actual = rating?.rating
       )
    }
@@ -262,29 +262,6 @@ class WingsuitRatingTests {
    }
 
    @Test
-   fun `Nunn -- High`() = runTest {
-      val highNunnProfile = listOf(
-         Point(0, 0),
-         Point(12, -55),
-         Point(20, -97),
-         Point(25, -111),
-         Point(34, -120),
-         Point(62, -142),
-         Point(87, -147),
-         Point(126, -203),
-      )
-
-      val rating = assembleWingsuitRating(
-         exitProfile = highNunnProfile,
-         flyableAltitude = 1801,
-         minimumRequiredGlide = 2.5,
-         hmsl = 2635
-      )
-
-      assertEquals(expected = JumpRating.TripleBlack.rating, actual = rating?.rating)
-   }
-
-   @Test
    fun `Timpanogos Cave`() = runTest {
       val timpanogosCave = listOf(
          Point(0, 0),
@@ -307,6 +284,58 @@ class WingsuitRatingTests {
          flyableAltitude = 800,
          minimumRequiredGlide = 2.0,
          hmsl = 2369
+      )
+
+      assertEquals(expected = JumpRating.TripleBlack.rating, actual = rating?.rating)
+   }
+
+   @Test
+   fun `Helios`() = runTest {
+      val heliosProfile = listOf(
+         Point(0, 0),
+         Point(2, -10),
+         Point(13, -52),
+         Point(14, -57),
+         Point(30, -124),
+         Point(50, -136),
+         Point(72, -151),
+         Point(90, -157),
+         Point(60, -140),
+         Point(170, -211),
+         Point(296, -281),
+         Point(555, -422),
+         Point(1328, -700),
+         Point(1435, -700)
+      )
+
+      val rating = assembleWingsuitRating(
+         exitProfile = heliosProfile,
+         flyableAltitude = 875,
+         minimumRequiredGlide = 2.8,
+         hmsl = 2916
+      )
+
+      assertEquals(expected = JumpRating.Red.rating, actual = rating?.rating)
+   }
+
+   @Test
+   fun `Nunn -- High`() = runTest {
+      val highNunnProfile = listOf(
+         Point(0, 0),
+         Point(12, -55),
+         Point(20, -97),
+         Point(25, -111),
+         Point(34, -120),
+         Point(62, -142),
+         Point(87, -147),
+         Point(126, -203),
+      )
+
+      val rating = assembleWingsuitRating(
+         exitProfile = highNunnProfile,
+         flyableAltitude = 1801,
+         minimumRequiredGlide = 2.5,
+         hmsl = 2635
       )
 
       assertEquals(expected = JumpRating.Red.rating, actual = rating?.rating)
